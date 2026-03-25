@@ -1,7 +1,7 @@
 from rest_framework import viewsets, filters, permissions
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from posts.models import Post, Group, Comment, Follow
+from posts.models import Post, Group, Follow
 from .serializers import (
     PostSerializer, GroupSerializer, CommentSerializer, FollowSerializer
 )
@@ -12,7 +12,7 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly, 
+        permissions.IsAuthenticatedOrReadOnly,
         IsAuthorOrReadOnly
     )
     pagination_class = None
@@ -33,7 +33,7 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly, 
+        permissions.IsAuthenticatedOrReadOnly,
         IsAuthorOrReadOnly
     )
     pagination_class = None
