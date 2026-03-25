@@ -1,7 +1,8 @@
 from rest_framework import viewsets, filters, permissions
+from rest_framework.pagination import PageNumberPagination
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from posts.models import Post, Group, Follow
+from posts.models import Post, Group, Comment, Follow
 from .serializers import (
     PostSerializer, GroupSerializer, CommentSerializer, FollowSerializer
 )
@@ -13,9 +14,9 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly,
-        IsAuthorOrReadOnly
+        IsAuthorOrReadOnly,
     )
-    pagination_class = None
+    pagination_class = PageNumberPagination
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)
     search_fields = ('text',)
 
@@ -34,7 +35,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly,
-        IsAuthorOrReadOnly
+        IsAuthorOrReadOnly,
     )
     pagination_class = None
 
